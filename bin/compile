@@ -356,7 +356,7 @@ fi
 
 status "Vendoring binaries into slug"
 mv /app/vendor/libmcrypt vendor/libmcrypt
-mv /app/vendor/libxrender vendor/libxrender
+#mv /app/vendor/libxrender vendor/libxrender
 mv /app/vendor/libicu vendor/libicu
 mv /app/vendor/nginx vendor/nginx
 mv /app/vendor/php vendor/php
