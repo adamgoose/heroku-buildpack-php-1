@@ -77,6 +77,7 @@ build_command=$(cat <<BUILD_CMD
     --with-zlib=/app/vendor/php/zlib \
     --with-bz2 \
     --with-openssl \
+    --with-readline \
     --enable-soap \
     --enable-xmlreader \
     --with-xmlrpc \
