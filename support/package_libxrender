@@ -22,7 +22,7 @@ cd $tempdir
 
 echo "-----> Downloading libxrender ${libxrender_version}"
 curl -L "http://xorg.freedesktop.org/releases/individual/lib/libXrender-${libxrender_version}.tar.bz2" \
-    | tar jxvf
+    | tar xvj
 
 build_cmd=$(cat <<SH
     mkdir -p /app/vendor/libxrender \
