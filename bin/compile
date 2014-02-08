@@ -258,14 +258,20 @@ VENDORED_PHP=/app/vendor/php
 status "Bundling NGINX ${NGINX_VERSION}"
 fetch_engine_package nginx "$NGINX_VERSION" /app/vendor/nginx | indent
 
-status "Bundling PHP ${PHP_VERSION}"
+
 
 # Install libraries also on build container, so PHP doesn't wayne about missing
 # dynamic libraries when running it during the slug compilation.
+status "Bundling libicu"
 fetch_package "libicu-51" /app/vendor/libicu > /dev/null
+
+status "Bundling libmcrypt"
 fetch_package "libmcrypt-${MCRYPT_VERSION}" /app/vendor/libmcrypt > /dev/null
+
+status "Bundling libxrender"
 fetch_package "libxrender-${LIBXRENDER_VSERION}" /app/vendor/libxrender > /dev/null
 
+status "Bundling PHP ${PHP_VERSION}"
 fetch_engine_package php "$PHP_VERSION" /app/vendor/php | indent
 
 test ! -d ".profile.d" && mkdir -p .profile.d || true
