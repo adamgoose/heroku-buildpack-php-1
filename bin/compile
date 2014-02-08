@@ -203,6 +203,7 @@ AVAILABLE_PHP_VERSIONS=$(curl "http://${S3_BUCKET}.s3.amazonaws.com/manifest.php
 AVAILABLE_NGINX_VERSIONS=$(curl "http://${S3_BUCKET}.s3.amazonaws.com/manifest.nginx" 2> /dev/null)
 
 MCRYPT_VERSION="2.5.8"
+LIBXRENDER_VSERION="0.9.8"
 PHP_VERSION="default"
 NGINX_VERSION="default"
 DOCUMENT_ROOT=
@@ -263,6 +264,7 @@ status "Bundling PHP ${PHP_VERSION}"
 # dynamic libraries when running it during the slug compilation.
 fetch_package "libicu-51" /app/vendor/libicu > /dev/null
 fetch_package "libmcrypt-${MCRYPT_VERSION}" /app/vendor/libmcrypt > /dev/null
+fetch_package "libxrender-${LIBXRENDER_VSERION}" /app/vendor/libxrender > /dev/null
 
 fetch_engine_package php "$PHP_VERSION" /app/vendor/php | indent
 
@@ -348,6 +350,7 @@ fi
 
 status "Vendoring binaries into slug"
 mv /app/vendor/libmcrypt vendor/libmcrypt
+mv /app/vendor/libxrender vendor/libxrender
 mv /app/vendor/libicu vendor/libicu
 mv /app/vendor/nginx vendor/nginx
 mv /app/vendor/php vendor/php

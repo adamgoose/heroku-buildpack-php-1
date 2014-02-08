@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -e
+
+libxrender_version="$1"
+
+if [ -z "$libxrender_version" ]; then
+    echo "Usage: $(basename "$0") VERSION" >&2
+    exit 1
+fi
+
+basedir="$( cd -P "$( dirname "$0" )" && pwd )"
+source "$basedir/../conf/buildpack.conf"
+
+export PATH=${basedir}/../vendor/bin:$PATH
+
+
+tempdir="$( mktemp -t libxrender_xxxx )"
+rm -rf $tempdir
+mkdir -p $tempdir
+cd $tempdir
+
+echo "-----> Downloading libxrender ${libxrender_version}"
+curl -L "http://xorg.freedesktop.org/releases/individual/lib/libXrender-${libxrender_version}.tar.bz2" \
+    | tar xzv
+
+build_cmd=$(cat <<SH
+    mkdir -p /app/vendor/libxrender \
+    && cd libxrender-${libxrender_version} \
+    && ./configure --disable-posix-threads --prefix=/app/vendor/libxrender \
+    && make && make install
+SH
+)
+
+vulcan build --verbose \
+    --prefix /app/vendor/libxrender \
+    --source "." \
+    --output "${tempdir}/libxrender-${libxrender_version}.tar.bz2" \
+    --name libxrender \
+    --command "$build_cmd"
+
+
+"$basedir/package-checksum" "libxrender-${libxrender_version}"
