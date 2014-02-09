@@ -21,8 +21,10 @@ mkdir -p $tempdir
 cd $tempdir
 
 echo "-----> Downloading libxrender ${libxrender_version}"
-curl -L "http://cgit.freedesktop.org/xorg/lib/libXrender/snapshot/libXrender-${libxrender_version}.zip" /
-| unzip -a
+
+curl -L "http://xorg.freedesktop.org/releases/individual/lib/libXrender-${libxrender_version}.tar.bz2"
+echo md5 libXrender-${libxrender_version}.tar.bz2
+#tar xjvf libXrender-${libxrender_version}.tar.bz2
 without
 build_cmd=$(cat <<SH
     mkdir -p /app/vendor/libxrender \
