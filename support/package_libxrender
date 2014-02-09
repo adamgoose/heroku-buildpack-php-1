@@ -22,7 +22,7 @@ cd $tempdir
 
 echo "-----> Downloading libxrender ${libxrender_version}"
 
-curl -L "http://xorg.freedesktop.org/releases/individual/lib/libXrender-${libxrender_version}.tar.bz2"
+download "http://xorg.freedesktop.org/releases/individual/lib/libXrender-${libxrender_version}.tar.bz2"
 echo md5 libXrender-${libxrender_version}.tar.bz2
 #tar xjvf libXrender-${libxrender_version}.tar.bz2
 
@@ -42,3 +42,15 @@ vulcan build --verbose \
     --command "$build_cmd"
 
 "$basedir/package-checksum" libXrender-${libxrender_version}
+
+
+
+download()
+{
+    local url=$1
+    echo -n "    "
+    wget --progress=dot $url 2>&1 | grep --line-buffered "%" | \
+        sed -u -e "s,\.,,g" | awk '{printf("\b\b\b\b%4s", $2)}'
+    echo -ne "\b\b\b\b"
+    echo " DONE"
+}
