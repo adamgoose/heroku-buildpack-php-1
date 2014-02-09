@@ -269,7 +269,7 @@ status "Bundling libmcrypt"
 fetch_package "libmcrypt-${MCRYPT_VERSION}" /app/vendor/libmcrypt > /dev/null
 
 status "Bundling libxrender"
-fetch_package "libxrender-${LIBXRENDER_VSERION}" /app/vendor/libxrender > /dev/null
+#fetch_package "libxrender-${LIBXRENDER_VSERION}" /app/vendor/libxrender > /dev/null
 
 status "Bundling PHP ${PHP_VERSION}"
 fetch_engine_package php "$PHP_VERSION" /app/vendor/php | indent
@@ -356,7 +356,7 @@ fi
 
 status "Vendoring binaries into slug"
 mv /app/vendor/libmcrypt vendor/libmcrypt
-mv /app/vendor/libxrender vendor/libxrender
+#mv /app/vendor/libxrender vendor/libxrender
 mv /app/vendor/libicu vendor/libicu
 mv /app/vendor/nginx vendor/nginx
 mv /app/vendor/php vendor/php
